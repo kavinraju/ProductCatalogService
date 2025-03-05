@@ -14,7 +14,7 @@ public class StorageProductService implements IProductService {
 
     @Override
     public Product getProductById(Long id) {
-        Optional<Product> optionalProduct = productRepo.fetchById(id);
+        Optional<Product> optionalProduct = productRepo.findById(id);
         return optionalProduct.orElse(null);
     }
 
@@ -30,7 +30,7 @@ public class StorageProductService implements IProductService {
 
     @Override
     public Boolean deleteProduct(Long id) {
-        Optional<Product> optionalProduct = productRepo.fetchById(id);
+        Optional<Product> optionalProduct = productRepo.findById(id);
         if (optionalProduct.isEmpty()) {
             return false;
         }
@@ -40,7 +40,7 @@ public class StorageProductService implements IProductService {
 
     @Override
     public Product createProduct(Product product) {
-        Optional<Product> optionalProduct = productRepo.fetchById(product.getId());
+        Optional<Product> optionalProduct = productRepo.findById(product.getId());
         if (optionalProduct.isEmpty()) {
             return productRepo.save(product);
         }

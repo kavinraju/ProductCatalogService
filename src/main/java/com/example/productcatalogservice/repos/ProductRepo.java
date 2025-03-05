@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Long> {
     Product save(Product product);
-    Optional<Product> fetchById(Long id);
+//    Optional<Product> fetchById(Long id);
 
     void deleteById(Long aLong);
 }

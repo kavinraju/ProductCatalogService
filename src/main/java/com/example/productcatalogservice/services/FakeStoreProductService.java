@@ -15,10 +15,7 @@ import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -102,7 +99,7 @@ public class FakeStoreProductService implements IProductService {
         fakeStoreProductDto.setDescription(product.getDescription());
         fakeStoreProductDto.setPrice(product.getPrice());
         fakeStoreProductDto.setImage(product.getImageUrl());
-        if(product.getCategory() != null) {
+        if (product.getCategory() != null) {
             fakeStoreProductDto.setCategory(product.getCategory().getName());
         }
         return fakeStoreProductDto;
