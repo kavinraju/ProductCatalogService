@@ -8,6 +8,7 @@ import com.example.productcatalogservice.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -15,12 +16,12 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    @Qualifier("sps")
+    @Qualifier("fkps")
     IProductService iProductService;
 
     @GetMapping("/{id}")
     public ProductDto getProductDetails(@PathVariable Long id) {
-        if(id <=0 ){
+        if (id <= 0) {
             throw new IllegalArgumentException("Invalid ID " + id);
         }
         Product product = iProductService.getProductById(id);
@@ -49,7 +50,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ProductDto replaceProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
-        if(id <=0 ){
+        if (id <= 0) {
             throw new IllegalArgumentException("Invalid ID " + id);
         }
         Product product = iProductService.replaceProduct(id, from(productDto));
@@ -59,9 +60,9 @@ public class ProductController {
         return from(product);
     }
 
-    @DeleteMapping
-    public boolean deleteProduct() {
-        return false;
+    @DeleteMapping("/{id}")
+    public boolean deleteProduct(@PathVariable Long id) {
+        return iProductService.deleteProduct(id);
     }
 
     private ProductDto from(Product product) {
@@ -86,7 +87,7 @@ public class ProductController {
         Product product = new Product();
         product.setName(productDto.getName());
         product.setId(productDto.getId());
-        if(productDto.getCategory() != null){
+        if (productDto.getCategory() != null) {
             Category category = new Category();
             category.setId(productDto.getCategory().getId());
             category.setName(productDto.getCategory().getName());

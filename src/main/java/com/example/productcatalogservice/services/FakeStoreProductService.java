@@ -75,13 +75,21 @@ public class FakeStoreProductService implements IProductService {
 
     @Override
     public Boolean deleteProduct(Long id) {
-
-        return false;
+        FakeStoreProductDto fakeStoreProductDto = requestForEntity("https://fakestoreapi.com/products/{id}", HttpMethod.DELETE, null, FakeStoreProductDto.class, id).getBody();
+        if (fakeStoreProductDto == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public Product createProduct(Product product) {
-        return null;
+        FakeStoreProductDto input = from(product);
+        FakeStoreProductDto response = requestForEntity("https://fakestoreapi.com/products/", HttpMethod.POST, input, FakeStoreProductDto.class).getBody();
+        if (response == null) {
+            return null;
+        }
+        return from(input);
     }
 
 
