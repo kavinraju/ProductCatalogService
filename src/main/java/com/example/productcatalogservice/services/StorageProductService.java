@@ -3,10 +3,14 @@ package com.example.productcatalogservice.services;
 import com.example.productcatalogservice.models.Product;
 import com.example.productcatalogservice.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service("sps")
+//@Primary
 public class StorageProductService implements IProductService {
 
     @Autowired
@@ -41,6 +45,7 @@ public class StorageProductService implements IProductService {
     @Override
     public Product createProduct(Product product) {
         Optional<Product> optionalProduct = productRepo.findById(product.getId());
+        System.out.println(optionalProduct.isEmpty());
         if (optionalProduct.isEmpty()) {
             return productRepo.save(product);
         }

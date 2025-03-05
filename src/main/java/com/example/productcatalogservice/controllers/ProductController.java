@@ -6,18 +6,19 @@ import com.example.productcatalogservice.models.Category;
 import com.example.productcatalogservice.models.Product;
 import com.example.productcatalogservice.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
+    @Qualifier("sps")
     IProductService iProductService;
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public ProductDto getProductDetails(@PathVariable Long id) {
         if(id <=0 ){
             throw new IllegalArgumentException("Invalid ID " + id);
@@ -30,7 +31,7 @@ public class ProductController {
         return from(product);
     }
 
-    @GetMapping("/products")
+    @GetMapping
     public List<ProductDto> getAllProducts() {
         List<Product> products = iProductService.getAllProducts();
         if (products == null) {
@@ -39,12 +40,14 @@ public class ProductController {
         return products.stream().map(val -> from(val)).toList();
     }
 
-    @PostMapping("/products")
+    @PostMapping
     public ProductDto createProduct(@RequestBody ProductDto productDto) {
-        return null;
+        Product product = from(productDto);
+        Product response = iProductService.createProduct(product);
+        return from(response);
     }
 
-    @PutMapping("/products/{id}")
+    @PutMapping("/{id}")
     public ProductDto replaceProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
         if(id <=0 ){
             throw new IllegalArgumentException("Invalid ID " + id);
@@ -56,7 +59,7 @@ public class ProductController {
         return from(product);
     }
 
-    @DeleteMapping("/products")
+    @DeleteMapping
     public boolean deleteProduct() {
         return false;
     }
@@ -70,6 +73,7 @@ public class ProductController {
         productDto.setImageUrl(product.getImageUrl());
         if (product.getCategory() != null) {
             CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setId(product.getCategory().getId());
             categoryDto.setName(product.getCategory().getName());
             categoryDto.setId(product.getCategory().getId());
             categoryDto.setDescription(product.getCategory().getDescription());
@@ -81,8 +85,10 @@ public class ProductController {
     private Product from(ProductDto productDto) {
         Product product = new Product();
         product.setName(productDto.getName());
+        product.setId(productDto.getId());
         if(productDto.getCategory() != null){
             Category category = new Category();
+            category.setId(productDto.getCategory().getId());
             category.setName(productDto.getCategory().getName());
             category.setDescription(productDto.getCategory().getDescription());
             product.setCategory(category);
