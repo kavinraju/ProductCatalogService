@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    @Qualifier("sps")
+//    @Qualifier("sps") // commenting for testing purpose
     IProductService iProductService;
 
     @GetMapping("/{id}")
