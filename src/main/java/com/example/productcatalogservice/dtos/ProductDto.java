@@ -1,11 +1,13 @@
 package com.example.productcatalogservice.dtos;
 
 import com.example.productcatalogservice.models.BaseModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDto extends BaseModel {
     private String name;
     private String description;

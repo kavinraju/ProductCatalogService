@@ -159,6 +159,7 @@ class ProductControllerTest {
 
         // Assert
         assertEquals("Invalid ID " + id, exception.getMessage());
+        verify(iProductService, times(0)).replaceProduct(id, new Product());
     }
 
     @Test
