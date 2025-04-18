@@ -18,7 +18,7 @@ class CategoryRepoTest {
     @Test
     @Transactional
     public void testFetchLazyType1() {
-        Category category = categoryRepo.findById(2L).get();
+        Category category = categoryRepo.findById(1L).get();
         System.out.println(category.getName());
 //        for (Product product : category.getProductList()) {
 //            System.out.println(product.getName());
@@ -30,7 +30,7 @@ class CategoryRepoTest {
     @Test
     @Transactional
     public void testFetchLazyType2() {
-        Category category = categoryRepo.findById(2L).get();
+        Category category = categoryRepo.findById(1L).get();
         System.out.println(category.getName());
         for (Product product : category.getProductList()) {
             System.out.println(product.getName());
@@ -42,7 +42,7 @@ class CategoryRepoTest {
     @Test
     @Transactional
     public void testFetchEagerType1() {
-        Category category = categoryRepo.findById(2L).get();
+        Category category = categoryRepo.findById(1L).get();
         System.out.println(category.getName());
         for (Product product : category.getProductList()) {
             System.out.println(product.getName());
@@ -54,7 +54,7 @@ class CategoryRepoTest {
     @Test
     @Transactional
     public void testFetchEagerType2() {
-        Category category = categoryRepo.findById(2L).get();
+        Category category = categoryRepo.findById(1L).get();
         System.out.println(category.getName());
 //        for (Product product : category.getProductList()) {
 //            System.out.println(product.getName());
