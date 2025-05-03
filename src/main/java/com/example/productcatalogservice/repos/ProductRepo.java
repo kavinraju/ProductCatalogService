@@ -1,6 +1,7 @@
 package com.example.productcatalogservice.repos;
 
 import com.example.productcatalogservice.models.Product;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +28,5 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     List<Product> findProductByPriceBetween(Double from, Double to);
 
-    List<Product> findByNameEquals(String name, Pageable pageable);
+    Page<Product> findByNameEquals(String name, Pageable pageable);
 }
